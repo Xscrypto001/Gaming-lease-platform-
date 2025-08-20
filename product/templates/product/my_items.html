@@ -1,0 +1,272 @@
+{% extends "product/base.html" %}
+{% block title %}My Items{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 p-6">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header Section -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-4xl font-bold text-white mb-2">My Items</h1>
+          <p class="text-gray-400">Manage your personal collection</p>
+        </div>
+        <div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700/50 rounded-xl p-4">
+          <div class="text-center">
+            <div class="text-2xl font-bold text-white">{{ my_items|length }}</div>
+            <div class="text-sm text-gray-400">Total Items</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Stats Bar -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700/50 rounded-xl p-4">
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mr-3">
+              <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="text-xl font-semibold text-white" id="available-count">0</div>
+              <div class="text-sm text-gray-400">Available</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700/50 rounded-xl p-4">
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center mr-3">
+              <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="text-xl font-semibold text-white" id="borrowed-count">0</div>
+              <div class="text-sm text-gray-400">Borrowed</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700/50 rounded-xl p-4">
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mr-3">
+              <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="text-xl font-semibold text-white">{{ my_items|length }}</div>
+              <div class="text-sm text-gray-400">Total Items</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Items Grid -->
+    {% if my_items %}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for item in my_items %}
+          <div class="item-card bg-gray-800/50 backdrop-blur-lg border border-gray-700/50 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border-gray-600/50" data-status="{% if item.is_borrowed %}borrowed{% else %}available{% endif %}">
+            <!-- Item Header -->
+            <div class="flex items-start justify-between mb-4">
+              <div class="flex-1">
+                <h3 class="text-xl font-semibold text-white mb-2 line-clamp-2">{{ item.name }}</h3>
+                <div class="flex items-center">
+                  {% if item.is_borrowed %}
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">
+                      <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                      Borrowed
+                    </span>
+                  {% else %}
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-300 border border-green-500/30">
+                      <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                      Available
+                    </span>
+                  {% endif %}
+                </div>
+              </div>
+              
+              <!-- Item Icon -->
+              <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center ml-4 flex-shrink-0">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-4">
+              <p class="text-gray-300 text-sm leading-relaxed line-clamp-3">
+                {% if item.description %}
+                  {{ item.description }}
+                {% else %}
+                  <span class="text-gray-500 italic">No description provided</span>
+                {% endif %}
+              </p>
+            </div>
+
+            <!-- Footer -->
+            <div class="flex items-center justify-between pt-4 border-t border-gray-700/50">
+              <div class="flex items-center text-gray-400 text-xs">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                {{ item.created_at|date:"M d, Y" }}
+              </div>
+              
+              <!-- Action Menu -->
+              <div class="relative">
+                <button class="text-gray-400 hover:text-white transition-colors duration-200 p-1 rounded-lg hover:bg-gray-700/50">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <!-- Empty State -->
+      <div class="text-center py-16">
+        <div class="bg-gray-800/50 backdrop-blur-lg border border-gray-700/50 rounded-2xl p-12 max-w-md mx-auto">
+          <div class="w-24 h-24 bg-gray-700/50 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-12 h-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-white mb-2">No Items Yet</h3>
+          <p class="text-gray-400 mb-6">You haven't added any items to your collection yet. Start by adding your first item!</p>
+          <button class="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-xl font-medium hover:from-blue-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl">
+            Add Your First Item
+          </button>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Count items by status
+  const items = document.querySelectorAll('.item-card');
+  let availableCount = 0;
+  let borrowedCount = 0;
+  
+  items.forEach(item => {
+    const status = item.getAttribute('data-status');
+    if (status === 'available') {
+      availableCount++;
+    } else if (status === 'borrowed') {
+      borrowedCount++;
+    }
+  });
+  
+  // Update counters
+  document.getElementById('available-count').textContent = availableCount;
+  document.getElementById('borrowed-count').textContent = borrowedCount;
+  
+  // Add staggered animation to cards
+  items.forEach((card, index) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    setTimeout(() => {
+      card.style.transition = 'all 0.6s ease-out';
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    }, index * 100);
+  });
+  
+  // Add pulse effect to status badges
+  const statusBadges = document.querySelectorAll('.inline-flex');
+  statusBadges.forEach(badge => {
+    if (badge.textContent.includes('Borrowed')) {
+      badge.style.animation = 'pulse 2s infinite';
+    }
+  });
+});
+
+// Add floating animation keyframes
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+  }
+  
+  .item-card:hover {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+`;
+document.head.appendChild(style);
+</script>
+
+<style>
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Enhanced hover effects */
+.item-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.item-card:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.1);
+}
+
+/* Gradient text effect */
+.bg-gradient-to-r {
+  background: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+/* Status badge glow effect */
+.bg-green-500\/20 {
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+}
+
+.bg-yellow-500\/20 {
+  box-shadow: 0 0 20px rgba(234, 179, 8, 0.2);
+}
+</style>
+{% endblock %}
