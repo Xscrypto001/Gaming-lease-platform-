@@ -181,7 +181,7 @@
             {{ item.name }}
         </h2>
         
-        <img src="{{ item.image.url }}" class="img-fluid item-image" alt="{{ item.name }}">
+        <img src="{{ item.file.url }}" class="img-fluid item-image" alt="{{ item.name }}">
         
         <div class="info-card">
             <div class="info-icon">
@@ -242,8 +242,8 @@ document.getElementById('payBtn').addEventListener('click', function () {
     
     var handler = PaystackPop.setup({
         key: '{{ PAYSTACK_PUBLIC_KEY }}', // your public key from settings
-        email: '{{ request.user.email }}',
-        amount: {{ item.price }} * 100,
+        email: 'ikinyapeter83@gmail.com',
+        amount: 10 * 100,
         currency: 'KES',
         callback: function(response){
             // Remove processing state
