@@ -1,0 +1,261 @@
+
+{% extends 'base.html' %}
+{% block title %}{{ item.name }}{% endblock %}
+
+{% block content %}
+<style>
+    .detail-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .item-title {
+        color: #2c3e50;
+        font-weight: 700;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .item-image {
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        transition: transform 0.3s ease;
+        margin-bottom: 25px;
+    }
+    
+    .item-image:hover {
+        transform: scale(1.02);
+    }
+    
+    .info-card {
+        background: rgba(255,255,255,0.9);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-left: 4px solid #3498db;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+    }
+    
+    .info-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    
+    .info-icon {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
+    }
+    
+    .info-card:hover .info-icon {
+        transform: rotate(5deg) scale(1.1);
+    }
+    
+    .info-content {
+        flex-grow: 1;
+    }
+    
+    .info-label {
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+    }
+    
+    .info-value {
+        color: #34495e;
+        font-size: 16px;
+        margin: 0;
+    }
+    
+    .price-card {
+        border-left-color: #27ae60;
+    }
+    
+    .price-card .info-icon {
+        background: linear-gradient(135deg, #27ae60, #219a52);
+    }
+    
+    .lease-btn {
+        background: linear-gradient(135deg, #27ae60, #219a52);
+        border: none;
+        padding: 15px 40px;
+        font-size: 18px;
+        font-weight: 600;
+        border-radius: 50px;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 30px auto 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .lease-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4);
+        background: linear-gradient(135deg, #219a52, #27ae60);
+    }
+    
+    .lease-btn:active {
+        transform: translateY(-1px);
+    }
+    
+    .lease-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+    }
+    
+    .lease-btn:hover::before {
+        left: 100%;
+    }
+    
+    .title-icon {
+        width: 32px;
+        height: 32px;
+        fill: #3498db;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+    }
+    
+    .lease-btn.processing {
+        pointer-events: none;
+        opacity: 0.8;
+        animation: pulse 1.5s infinite;
+    }
+    
+    .lease-btn.processing .btn-text::after {
+        content: '...';
+        animation: dots 1.5s infinite;
+    }
+    
+    @keyframes dots {
+        0%, 20% { content: '.'; }
+        40% { content: '..'; }
+        60%, 100% { content: '...'; }
+    }
+</style>
+
+<div class="container">
+    <div class="detail-container">
+        <h2 class="item-title">
+            <svg class="title-icon" viewBox="0 0 24 24">
+                <path d="M12 2L2 7V10C2 16 6 20.5 12 22C18 20.5 22 16 22 10V7L12 2M12 4.14L20 8.35V10C20 15.1 17 18.83 12 20C7 18.83 4 15.1 4 10V8.35L12 4.14Z"/>
+            </svg>
+            {{ item.name }}
+        </h2>
+        
+        <img src="{{ item.image.url }}" class="img-fluid item-image" alt="{{ item.name }}">
+        
+        <div class="info-card">
+            <div class="info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H9C7.9 1 7 1.9 7 3V7C7 8.1 7.9 9 9 9H21ZM3 11V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V11H3ZM12 15C13.66 15 15 16.34 15 18S13.66 21 12 21 9 19.66 9 18 10.34 15 12 15Z"/>
+                </svg>
+            </div>
+            <div class="info-content">
+                <div class="info-label">Leaser</div>
+                <p class="info-value">{{ item.owner.username }}</p>
+            </div>
+        </div>
+        
+        <div class="info-card">
+            <div class="info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2M18 20H6V4H13V9H18V20Z"/>
+                </svg>
+            </div>
+            <div class="info-content">
+                <div class="info-label">Description</div>
+                <p class="info-value">{{ item.description }}</p>
+            </div>
+        </div>
+        
+        <div class="info-card price-card">
+            <div class="info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <path d="M7 15H9C9 16.08 10.37 17 12 17S15 16.08 15 15C15 13.9 13.96 13.5 11.76 12.97C9.64 12.44 7 11.78 7 9C7 7.21 8.47 5.69 10.5 5.18V3H13.5V5.18C15.53 5.69 17 7.21 17 9H15C15 7.92 13.63 7 12 7S9 7.92 9 9C9 10.1 10.04 10.5 12.24 11.03C14.36 11.56 17 12.22 17 15C17 16.79 15.53 18.31 13.5 18.82V21H10.5V18.82C8.47 18.31 7 16.79 7 15Z"/>
+                </svg>
+            </div>
+            <div class="info-content">
+                <div class="info-label">Price</div>
+                <p class="info-value">KSH {{ item.price }}</p>
+            </div>
+        </div>
+        
+        <button id="payBtn" class="btn lease-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H9C7.9 1 7 1.9 7 3V7C7 8.1 7.9 9 9 9H21ZM12 13.5C10.1 13.5 8.5 11.9 8.5 10S10.1 6.5 12 6.5S15.5 8.1 15.5 10S13.9 13.5 12 13.5ZM12 22C12 22 3 17 3 10.5C3 6.4 6.4 3 10.5 3H13.5C17.6 3 21 6.4 21 10.5C21 17 12 22 12 22Z"/>
+            </svg>
+            <span class="btn-text">Lease Now</span>
+        </button>
+    </div>
+</div>
+
+<!-- Paystack Integration -->
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+document.getElementById('payBtn').addEventListener('click', function () {
+    // Add visual feedback
+    const btn = this;
+    const btnText = btn.querySelector('.btn-text');
+    const originalText = btnText.textContent;
+    
+    btn.classList.add('processing');
+    btnText.textContent = 'Processing';
+    
+    var handler = PaystackPop.setup({
+        key: '{{ PAYSTACK_PUBLIC_KEY }}', // your public key from settings
+        email: '{{ request.user.email }}',
+        amount: {{ item.price }} * 100,
+        currency: 'KES',
+        callback: function(response){
+            // Remove processing state
+            btn.classList.remove('processing');
+            btnText.textContent = originalText;
+            
+            alert('Payment successful. Ref: ' + response.reference);
+            // TODO: send AJAX call to backend to confirm payment & update lease
+        },
+        onClose: function(){
+            // Remove processing state
+            btn.classList.remove('processing');
+            btnText.textContent = originalText;
+            
+            alert('Payment window closed');
+        }
+    });
+    handler.openIframe();
+});
+</script>
+{% endblock %}
