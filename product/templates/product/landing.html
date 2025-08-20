@@ -7,7 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LunaShare - Gaming Equipment Leasing Platform</title>
-
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <style>
@@ -499,10 +500,22 @@
         <section id="map" class="map-section">
             <div class="container">
                 <h2 class="section-title">🌍 Items Near You</h2>
-                <div class="map-container">
-                    <div id="leaflet-map"></div>
-                </div>
-            </div>
+               
+
+                                                                              <h2>Leaflet Map with Marker</h2>
+    <div id="map" style="height:400px;width:100%;"></div>
+
+    <script>
+      var map = L.map("map").setView([-1.2921, 36.8219], 13);                    
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {                attribution: "© OpenStreetMap contributors",
+      }).addTo(map);
+
+      L.marker([-1.2921, 36.8219])
+        .addTo(map)
+        .bindPopup("<b>Nairobi</b><br />Kenya")
+        .openPopup();
+    </script>
+</div>
         </section>
 
         <!-- Items Section -->
@@ -648,6 +661,72 @@
 
 
     </div>
+<footer class="bg-gray-900 text-gray-300 py-10">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      
+      <!-- Brand -->
+      <div>
+        <h2 class="text-2xl font-extrabold text-purple-500">Luna Share</h2>
+        <p class="mt-3 text-sm text-gray-400">
+          Level up your gaming experience. Connect, share, and play with the Luna Share community.
+        </p>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <h3 class="text-lg font-semibold text-white mb-3">Quick Links</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-purple-400 transition">Home</a></li>
+          <li><a href="#" class="hover:text-purple-400 transition">Games</a></li>
+          <li><a href="#" class="hover:text-purple-400 transition">Community</a></li>
+          <li><a href="#" class="hover:text-purple-400 transition">Support</a></li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div>
+        <h3 class="text-lg font-semibold text-white mb-3">Resources</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-purple-400 transition">Blog</a></li>
+          <li><a href="#" class="hover:text-purple-400 transition">FAQ</a></li>
+          <li><a href="#" class="hover:text-purple-400 transition">Terms</a></li>
+          <li><a href="#" class="hover:text-purple-400 transition">Privacy</a></li>
+        </ul>
+      </div>
+
+      <!-- Social -->
+      <div>
+        <h3 class="text-lg font-semibold text-white mb-3">Follow Us</h3>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-purple-400 transition">
+            <!-- Discord -->
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.317 4.369A19.791 19.791 0 0016.79 3c-.184.33-.39.764-.531 1.108a18.322 18.322 0 00-8.518 0c-.14-.344-.347-.778-.53-1.108-1.265.23-2.46.63-3.528 1.369C1.99 9.184 1.33 13.905 1.71 18.568a19.9 19.9 0 005.95 2.94c.477-.657.9-1.352 1.266-2.078-.694-.263-1.36-.58-1.978-.951.166-.124.33-.254.486-.389 3.83 1.79 7.98 1.79 11.82 0 .158.135.321.265.488.389-.62.37-1.288.688-1.983.95.367.727.79 1.422 1.269 2.08a19.9 19.9 0 005.948-2.94c.516-5.22-.875-9.888-3.659-14.199zM9.346 15.569c-1.183 0-2.154-1.086-2.154-2.421 0-1.334.946-2.42 2.154-2.42 1.197 0 2.175 1.086 2.154 2.42 0 1.335-.946 2.421-2.154 2.421zm5.317 0c-1.183 0-2.154-1.086-2.154-2.421 0-1.334.946-2.42 2.154-2.42 1.197 0 2.175 1.086 2.154 2.42 0 1.335-.946 2.421-2.154 2.421z"/>
+            </svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-purple-400 transition">
+            <!-- Twitter/X -->
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.49l-5.356-7.02-6.134 7.02H1.691l7.73-8.846L1.25 2.25h7.442l4.822 6.348 4.73-6.348z"/>
+            </svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-purple-400 transition">
+            <!-- Twitch -->
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M4.265 0L0 4.24v15.522h6.483V24l4.24-4.238h5.365L24 11.196V0H4.265zM21.29 9.097l-3.55 3.55h-5.364l-2.843 2.844V12.65H6.483V2.71h14.807V9.097z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="mt-10 border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
+      © 2025 Luna Share. All Rights Reserved.
+    </div>
+  </div>
+</footer>
 
     <!-- LeafletJS Map -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>

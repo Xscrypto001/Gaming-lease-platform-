@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Leaflet Map Example</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  </head>
+  <body>
+    <h2>Leaflet Map with Marker</h2>
+    <div id="map" style="height:400px;width:100%;"></div>
+
+    <script>
+      var map = L.map("map").setView([-1.2921, 36.8219], 13);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors",
+      }).addTo(map);
+
+      L.marker([-1.2921, 36.8219])
+        .addTo(map)
+        .bindPopup("<b>Nairobi</b><br />Kenya")
+        .openPopup();
+    </script>
+  </body>
+</html>
