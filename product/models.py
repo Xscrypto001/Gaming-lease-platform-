@@ -136,6 +136,9 @@ class Item(models.Model):
     borrower = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="items_borrowed")
     is_borrowed = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
+#    image = models.ImageField(upload_to="items/", blank=True, null=True)
+    file = models.FileField(upload_to="items/files/", blank=True, null=True)  # any file
+
 
     def __str__(self):
         return f"{self.name} (Owner: {self.owner.username})"

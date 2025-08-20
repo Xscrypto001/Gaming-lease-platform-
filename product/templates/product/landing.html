@@ -502,7 +502,7 @@
         </section>
 
         <!-- Items Section -->
-        <section id="items" class="items-section">
+<!--        <section id="items" class="items-section">
             <div class="container">
                 <h2 class="section-title">Available Leases</h2>
                 <div class="items-grid">
@@ -556,7 +556,39 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section>-->
+
+<section id="items" class="py-12 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <h2 class="text-2xl font-bold mb-8 text-center">🎮 Available Leases</h2>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {% for item in items %}
+      <div class="bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition">
+        {% if item.image %}
+        <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full h-48 object-cover">
+        {% else %}
+        <div class="w-full h-48 flex items-center justify-center bg-gray-200 text-4xl">
+          🎮
+        </div>
+        {% endif %}
+        
+        <div class="p-4">
+          <h5 class="text-lg font-semibold">{{ item.name }}</h5>
+          <p class="text-sm text-gray-600">Leaser: @{{ item.owner.username }}</p>
+          <p class="text-gray-500 text-sm mt-1 line-clamp-2">{{ item.description }}</p>
+          <a href="#" class="mt-3 inline-block px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition">
+            View Details
+          </a>
+        </div>
+      </div>
+      {% empty %}
+      <p class="col-span-full text-center text-gray-500">No items available right now.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
     </div>
 
     <!-- LeafletJS Map -->

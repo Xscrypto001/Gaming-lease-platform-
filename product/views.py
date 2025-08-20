@@ -229,11 +229,12 @@ def add_item(request):
     if request.method == "POST":
         name = request.POST.get("name")
         description = request.POST.get("description")
-
+        file = request.FILES.get("file")  # handle uploaded file/image
         if name:  # simple validation
             Item.objects.create(
                 name=name,
                 description=description,
+                file = file,
                 owner=request.user,
             )
             return redirect("my_items")  # redirect to /my-items after adding
