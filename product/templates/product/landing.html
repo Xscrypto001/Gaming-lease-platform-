@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHub - Gaming Equipment Leasing Platform</title>
+    <title>LunaShare - Gaming Equipment Leasing Platform</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <style>
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            ox-sizing: border-box;
         }
 
         body {
@@ -164,8 +164,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="60" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="70" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="80" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="30" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
-            animation: float 6s ease-in-out infinite;
+            background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOaP4tDQDUluOFFLTtLy5hEVuCaDMVGkVHBVcWwe3cU_WGpD35UeIwxEg&s") no-repeat center center;
+            background-size: cover;
+
+         //   animation: float 6s ease-in-out infinite;
         }
 
         @keyframes float {
@@ -216,12 +218,12 @@
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            ox-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            ox-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
             color: #667eea;
         }
 
@@ -248,7 +250,7 @@
             padding: 2.5rem;
             border-radius: 20px;
             text-align: center;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            ox-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             border: 1px solid rgba(102, 126, 234, 0.1);
             position: relative;
@@ -269,7 +271,7 @@
 
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
+            ox-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
         }
 
         .feature-card:hover::before {
@@ -304,7 +306,7 @@
         .map-container {
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            ox-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
             height: 500px;
             position: relative;
         }
@@ -331,13 +333,13 @@
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            ox-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
 
         .item-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            ox-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
         }
 
         .item-image {
@@ -435,7 +437,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#home" class="nav-logo">GameHub 🎮</a>
+            <a href="#home" class="nav-logo">LunaShare 🎮</a>
             
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
@@ -446,8 +448,8 @@
             </ul>
 
             <div class="auth-buttons">
-                <a href="#signin" class="btn-signin">Sign In</a>
-                <a href="#signup" class="btn-signup">Sign Up</a>
+                <a href="{% url 'login' %}" class="btn-signin">Sign In</a>
+                <a href="{% url 'signup' %}" class="btn-signup">Sign Up</a>
             </div>
 
             <div class="mobile-menu-btn">
@@ -462,7 +464,7 @@
         <!-- Hero Section -->
         <section id="home" class="hero">
             <div class="hero-content">
-                <h1>Welcome to GameHub <span class="hero-emoji">🎮</span></h1>
+                <h1>Welcome to LunaShare <span class="hero-emoji">🎮</span></h1>
                 <p>Lease gaming equipment, consoles, and accessories with ease. Join the ultimate gaming community.</p>
                 <a href="#items" class="btn-primary">Browse Leases</a>
             </div>
