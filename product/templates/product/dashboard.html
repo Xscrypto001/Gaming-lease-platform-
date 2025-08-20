@@ -1,6 +1,6 @@
 
 
-{% extends "base.html" %}
+{% extends "product/base.html" %}
 {% block title %}Dashboard{% endblock %}
 {% block topbar %}Dashboard{% endblock %}
 {% block content %}
@@ -140,7 +140,15 @@
                 </div>
                 <div class="payment-details">
                   <div class="payment-status status-{{ p.status|lower }}">
-                    <i class="fas fa-{{ p.status|lower == 'completed' and 'check-circle' or 'clock' }}"></i>
+
+{% if p.status|lower == "completed" %}
+    <i class="icon-check-circle text-green-500"></i>
+{% else %}
+    <i class="icon-clock text-yellow-500"></i>
+{% endif %}
+
+
+                   
                     {{ p.status }}
                   </div>
                   <div class="payment-date">{{ p.created_at|date:"M d, Y" }}</div>

@@ -3,8 +3,37 @@ from django.http import HttpResponse
 from django.contrib import messages
 from .models import User
 
+from django.contrib.auth import authenticate, login
+
+from django.contrib import messages
+# import User
+from django.shortcuts import render, redirect
 
 def signup_view(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        # Check if username already exists
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already taken")
+            return redirect("signup")
+
+        # Create and save new user
+        user = User(username=username, email=email)
+        user.set_password(password)  # hash the password
+        user.save()
+
+        messages.success(request, "Signup successful. Please login.")
+        return redirect("login")
+
+    return render(request, "product/signup.html")
+
+
+
+
+'''def signup_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
         email = request.POST.get("email")
@@ -15,6 +44,7 @@ def signup_view(request):
             return redirect("signup")
 
         user = User(username=username, email=email)
+        login(request, user)
         user.set_password(password)
         user.save()
         messages.success(request, "Signup successful. Please login.")
@@ -22,7 +52,29 @@ def signup_view(request):
 
     return render(request, "product/signup.html")
 
+'''
 
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(request, username=username, password=password)  # authenticate user
+        if user is not None:
+            login(request, user)  # log the user in and start a session
+            return redirect("dashboard")  # redirect to dashboard
+        else:
+            messages.error(request, "Invalid username or password")
+
+    return render(request, "product/login.html")
+
+
+
+'''
 def login_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -40,7 +92,7 @@ def login_view(request):
 
     return render(request, "product/login.html")
 
-'''
+
 def dashboard_view(request):
     user_id = request.session.get("user_id")
     if not user_id:
