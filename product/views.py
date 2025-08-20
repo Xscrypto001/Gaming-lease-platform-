@@ -9,6 +9,30 @@ from django.contrib import messages
 # import User
 from django.shortcuts import render, redirect
 
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Item
+
+@login_required
+def add_item(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        description = request.POST.get("description")
+
+        if name:  # simple validation
+            Item.objects.create(
+                name=name,
+                description=description,
+                owner=request.user,
+            )
+            return redirect("my_items")  # redirect to /my-items after adding
+
+    return render(request, "add_item.html")
+
+
+
+
 def signup_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
