@@ -12,4 +12,9 @@ urlpatterns = [
     path("dashboard/", views.dashboard, name="dashboard"),
     path("update-location/", views.update_location, name="update_location"),
 
+
+
+    path("", views.landing_page, name="landing"),
+    path("item/<int:item_id>/", views.item_detail, name="item_detail"),
+
 ]

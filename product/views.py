@@ -86,3 +86,22 @@ def update_location(request):
         profile.save()
         return JsonResponse({"status": "success"})
     return JsonResponse({"status": "error"}, status=400)
+
+
+
+
+
+from django.shortcuts import render, get_object_or_404
+from .models import Item
+from django.conf import settings
+
+def landing_page(request):
+    items = Item.objects.all()
+    return render(request, "product/landing.html", {"items": items})
+
+def item_detail(request, item_id):
+    item = get_object_or_404(Item, id=item_id)
+    return render(request, "product/item_detail.html", {
+        "item": item,
+        "PAYSTACK_PUBLIC_KEY": settings.PAYSTACK_PUBLIC_KEY
+    })
