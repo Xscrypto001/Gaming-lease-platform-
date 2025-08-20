@@ -17,4 +17,12 @@ urlpatterns = [
     path("", views.landing_page, name="landing"),
     path("item/<int:item_id>/", views.item_detail, name="item_detail"),
 
+
+
+
+    path("profile/", views.profile_view, name="profile"),
+    path("my-items/", views.my_items_view, name="my_items"),
+    path("borrowed-items/", views.borrowed_items_view, name="borrowed_items"),
+
+
 ]
