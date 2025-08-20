@@ -195,14 +195,14 @@ from .models import Profile, Item
 @login_required
 def profile_view(request):
     profile = Profile.objects.get(user=request.user)
-    return render(request, "profile.html", {"profile": profile})
+    return render(request, "product/profile.html", {"profile": profile})
 
 @login_required
 def my_items_view(request):
     my_items = Item.objects.filter(owner=request.user)
-    return render(request, "my_items.html", {"my_items": my_items})
+    return render(request, "product/my_items.html", {"my_items": my_items})
 
 @login_required
 def borrowed_items_view(request):
     borrowed_items = Item.objects.filter(borrower=request.user)
-    return render(request, "borrowed_items.html", {"borrowed_items": borrowed_items})
+    return render(request, "product/borrowed_items.html", {"borrowed_items": borrowed_items})

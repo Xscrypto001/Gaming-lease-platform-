@@ -23,6 +23,7 @@ urlpatterns = [
     path("profile/", views.profile_view, name="profile"),
     path("my-items/", views.my_items_view, name="my_items"),
     path("borrowed-items/", views.borrowed_items_view, name="borrowed_items"),
+    path("add-item/", views.add_item, name="add_item"),
 
 
 ]
