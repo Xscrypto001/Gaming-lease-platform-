@@ -192,10 +192,17 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Profile, Item
 
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import User
+
 @login_required
 def profile_view(request):
-    profile = Profile.objects.get(user=request.user)
-    return render(request, "product/profile.html", {"profile": profile})
+    user = request.user  # current logged in user
+    return render(request, "product/profile.html", {"profile": user})
+
+
 
 @login_required
 def my_items_view(request):
