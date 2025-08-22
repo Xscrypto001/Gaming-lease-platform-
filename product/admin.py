@@ -8,6 +8,6 @@ from .models import *
 admin.site.register(User)
 admin.site.register(Item)
 admin.site.register(Transaction)
-
+admin.site.register(UserDocument)
 
 # Register your models here.
