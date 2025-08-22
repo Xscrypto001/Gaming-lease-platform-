@@ -25,7 +25,7 @@ from django.core.files.storage import default_storage
 from django.db import models
 from django.conf import settings
 import uuid
-
+'''
 # Add this model to your models.py (alongside your custom User model)
 class UserDocument(models.Model):
     DOCUMENT_TYPES = [
@@ -47,7 +47,7 @@ class UserDocument(models.Model):
     
     def __str__(self):
         return f"{self.user.username} - {self.get_document_type_display()}"
-
+'''
 
 def signup_view(request):
     if request.method == "POST":
