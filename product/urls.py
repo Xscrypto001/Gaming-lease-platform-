@@ -26,4 +26,9 @@ urlpatterns = [
     path("add-item/", views.add_item, name="add_item"),
 
 
+path('user-documents/', views.get_user_documents_view, name='user_documents'),
+    path('delete-document/<int:document_id>/', views.delete_user_document_view, name='delete_document'),
+
+
+
 ]
