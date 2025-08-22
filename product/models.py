@@ -34,7 +34,7 @@ class UserDocument(models.Model):
         ('bank_statement', 'Bank Statement'),
     ]
     
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='documents')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents')
     document_type = models.CharField(max_length=20, choices=DOCUMENT_TYPES)
     file = models.FileField(upload_to='user_documents/%Y/%m/%d/')
     uploaded_at = models.DateTimeField(auto_now_add=True)

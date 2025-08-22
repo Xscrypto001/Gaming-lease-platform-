@@ -25,6 +25,12 @@ from django.core.files.storage import default_storage
 from django.db import models
 from django.conf import settings
 import uuid
+
+
+def terms(request):
+    
+    return render(request, "product/terms.html")
+
 '''
 # Add this model to your models.py (alongside your custom User model)
 class UserDocument(models.Model):
