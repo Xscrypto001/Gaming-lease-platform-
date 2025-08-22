@@ -26,7 +26,26 @@ class User(AbstractUser):
         return self.username or self.gamer_tag
 
 
-
+class UserDocument(models.Model):
+    DOCUMENT_TYPES = [
+        ('id', 'ID Upload'),
+        ('proof_address', 'Proof of Address'),
+        ('proof_income', 'Proof of Income'),
+        ('bank_statement', 'Bank Statement'),
+    ]
+    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='documents')
+    document_type = models.CharField(max_length=20, choices=DOCUMENT_TYPES)
+    file = models.FileField(upload_to='user_documents/%Y/%m/%d/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    file_name = models.CharField(max_length=255)
+    file_size = models.BigIntegerField()
+    
+    class Meta:
+        unique_together = ('user', 'document_type')
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.get_document_type_display()}"
 class GamingEquipment(models.Model):
     EQUIPMENT_TYPES = [
         ("PLAYSTATION", "PlayStation Console"),
