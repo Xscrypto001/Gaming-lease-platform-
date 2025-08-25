@@ -26,7 +26,60 @@ from django.db import models
 from django.conf import settings
 import uuid
 
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .models import Payment
+# views.py
+import requests
+from django.conf import settings
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
+from .models import Payment, Item
 
+@csrf_exempt
+def verify_payment(request):
+    """
+    Paystack calls this after frontend callback.
+    We verify the transaction & update Payment + Item.
+    """
+    if request.method == "POST":
+        reference = request.POST.get("reference")
+        item_id = request.POST.get("item_id")
+        user = request.user
+
+        # verify from Paystack API
+        headers = {"Authorization": f"Bearer sk_live_87ef3d682e9cbf1e0e7f46b39e6e8f23d32ac7d6"}
+        url = f"https://api.paystack.co/transaction/verify/{reference}"
+        resp = requests.get(url, headers=headers)
+        result = resp.json()
+
+        if result.get("status") and result["data"]["status"] == "success":
+            # ✅ Payment successful
+            item = get_object_or_404(Item, id=item_id)
+
+            payment = Payment.objects.create(
+                user=user,
+                item=item,
+                amount=result["data"]["amount"] / 100,  # convert kobo -> naira or cents -> KES
+                status="completed",
+            )
+
+            # Mark item as borrowed
+            item.borrower = user
+            item.is_borrowed = True
+            item.save()
+
+            return JsonResponse({"status": "success", "payment_id": payment.id})
+        else:
+            return JsonResponse({"status": "failed", "message": "Payment verification failed"})
+
+    return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
+
+@login_required
+def payment_list(request):
+    payments = Payment.objects.filter(user=request.user).order_by("-timestamp")
+    return render(request, "product/payment_list.html", {"payments": payments})
 def terms(request):
     
     return render(request, "product/terms.html")

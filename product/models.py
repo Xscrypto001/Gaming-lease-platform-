@@ -128,8 +128,16 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.tx_type} - {self.amount}"
+'''
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .models import Payment
 
-
+@login_required
+def payment_list(request):
+    payments = Payment.objects.filter(user=request.user).order_by("-timestamp")
+    return render(request, "payments/payment_list.html", {"payments": payments})
+'''
 
 
 

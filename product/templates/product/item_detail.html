@@ -246,13 +246,38 @@ document.getElementById('payBtn').addEventListener('click', function () {
         amount: 10 * 100,
         currency: 'KES',
         callback: function(response){
-            // Remove processing state
-            btn.classList.remove('processing');
-            btnText.textContent = originalText;
-            
-            alert('Payment successful. Ref: ' + response.reference);
-            // TODO: send AJAX call to backend to confirm payment & update lease
+    btn.classList.remove('processing');
+    btnText.textContent = originalText;
+
+    alert('Payment successful. Ref: ' + response.reference);
+
+    // 🔥 Send reference + item_id to backend
+    fetch("{% url 'verify_payment' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": "{{ csrf_token }}"
         },
+        body: new URLSearchParams({
+            reference: response.reference,
+            item_id: "{{ item.id }}"
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            alert("Lease confirmed ✅");
+            window.location.reload();
+        } else {
+            alert("Verification failed ❌: " + data.message);
+        }
+    })
+    .catch(err => {
+        alert("Error verifying payment ❌");
+        console.error(err);
+    });
+},
+
         onClose: function(){
             // Remove processing state
             btn.classList.remove('processing');

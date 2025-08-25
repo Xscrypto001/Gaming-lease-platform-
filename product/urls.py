@@ -29,6 +29,7 @@ path("terms/", views.terms, name="terms"),
 path('user-documents/', views.get_user_documents_view, name='user_documents'),
     path('delete-document/<int:document_id>/', views.delete_user_document_view, name='delete_document'),
 
-
+path("payments/", views.payment_list, name="payment_list"),
+path("payments/verify/", views.verify_payment, name="verify_payment"),
 
 ]
