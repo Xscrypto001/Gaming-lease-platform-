@@ -166,7 +166,11 @@ class Item(models.Model):
 #    image = models.ImageField(upload_to="items/", blank=True, null=True)
     file = models.FileField(upload_to="items/files/", blank=True, null=True)  # any file
 
-
+    time_from = models.TimeField(null=True)
+    time_to = models.TimeField(null=True)
+    
+    # Price
+    price = models.DecimalField(max_digits=20, decimal_places=2,null=True)
     def __str__(self):
         return f"{self.name} (Owner: {self.owner.username})"
 
