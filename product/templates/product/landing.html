@@ -640,8 +640,29 @@
           <p class="text-gray-600 text-sm mt-2 line-clamp-2">
             {{ item.description }}
           </p>
+<div class="info-card">
+    <div class="info-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+            <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 ..." />
+        </svg>
+    </div>
+    <div class="info-content">
+        <div class="info-label">Price & Time</div>
+        <p class="text-gray-600 text-sm mt-2 line-clamp-2">
+            Price: {{ item.price }} <br>
+            From: {{ item.time_from }} &nbsp; To: {{ item.time_to }}
+        </p>
+    </div>
+</div>
 
+<!--
+<p class="text-gray-600 text-sm mt-2 line-clamp-2">
+            {{ item.price }}   {{}}
+          </p>-->
           <!-- Actions -->
+
+
+
           <div class="mt-4 flex justify-between items-center">
             <a href="{% url 'item_detail' item.id %}" 
                class="inline-block px-4 py-2 bg-orange-500 text-white text-sm font-semibold rounded-lg shadow hover:bg-orange-600 transition">
