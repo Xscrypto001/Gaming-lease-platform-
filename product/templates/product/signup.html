@@ -311,17 +311,63 @@
                 <input type="email" name="email" placeholder="Email Address" required>
             </div>
             <div class="form-group">
-                <input type="password" name="password" id="password" placeholder="Password" required>
+              
+<div style="position: relative; display: inline-block;">
+  <input 
+    type="password" 
+    name="password" 
+    id="password" 
+    placeholder="Password" 
+    required 
+    style="padding-right: 70px;"
+  >
+  <button 
+    type="button" 
+    onclick="togglePassword()" 
+    style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); border: none; background: none; cursor: pointer;"
+  >
+    👁️
+  </button>
+</div>
+
+<!--  <input type="password" name="password" id="password" placeholder="Password" required><button 
+    type="button" 
+    onclick="togglePassword()" 
+    style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); border: none; background: none; cursor: pointer;"
+  >👁️
+  </button>-->
                 <div class="password-requirements">
                     Password must be at least 8 characters with uppercase, lowercase, number and special character
                 </div>
                 <div class="password-error" id="passwordError"></div>
             </div>
-            <div class="form-group">
+           <!-- <div class="form-group">
                 <input type="password" name="confirm_password" id="confirmPassword" placeholder="Confirm Password" required>
                 <div class="password-error" id="confirmPasswordError"></div>
-            </div>
-            
+            </div>-->
+            <div class="form-group" style="position: relative;">
+  <input 
+    type="password" 
+    name="confirm_password" 
+    id="confirmPassword" 
+    placeholder="Confirm Password" 
+    required 
+    style="padding-right: 70px;"
+  >
+  <button 
+    type="button" 
+   
+onclick="togglePassword()"
+ 
+    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border: none; background: none; cursor: pointer;"
+  >
+    👁️
+  </button>
+  <div class="password-error" id="confirmPasswordError"></div>
+</div>
+
+
+
             <div class="form-group">
                 <label class="file-label" for="id_upload">ID Upload</label>
                 <input type="file" name="id_upload" id="id_upload" accept=".pdf,.jpg,.jpeg,.png" required>
@@ -356,7 +402,23 @@
             <a href="{% url 'login' %}">Already have an account? Login</a>
         </div>
     </div>
+<script>
+function togglePassword(fieldId) {
+  const input = document.getElementById(fieldId);
+  input.type = input.type === "password" ? "text" : "password";
+}
+</script>
 
+<script>
+function togglePassword() {
+  const password = document.getElementById("password");
+  if (password.type === "password") {
+    password.type = "text";
+  } else {
+    password.type = "password";
+  }
+}
+</script>
     <script>
         const passwordInput = document.getElementById('password');
         const confirmPasswordInput = document.getElementById('confirmPassword');
